@@ -2,6 +2,7 @@ import uuid
 from qrscanner import get_qr_data
 from furl import furl
 
+
 # Random device ID
 random_uuid = str(uuid.uuid4()).replace('-', '')
 # DeviceID
@@ -15,14 +16,8 @@ uagent = 'okhttp/3.0.1'
 # Base URL
 base = 'https://proverkacheka.nalog.ru:9999'
 
-print(random_uuid)
-qrscan = get_qr_data('qr.png')
+f = furl('/?{}'.format(get_qr_data('qr.png')))
+fn = f.args['fn']
+fd = f.args['i']
+fs = f.args['fp']
 
-
-
-# Fiscal storage (Номер фискального накопителя - ФН)
-FN = "8710000100955536"
-# Fiscal document number (Номер фискального документа - ФД)
-FD = "151034"
-# Fiscal sign (Подпись фискального документа - ФП)
-FS = "196397073"
