@@ -3,6 +3,8 @@ from qrscanner import get_qr_data
 from furl import furl
 import requests
 
+# Place .netrc in home directory with format "machine proverkacheka.nalog.ru login {you phone number} password {pin from sms}"
+
 # Random device ID
 dev_id = str(uuid.uuid4()).replace('-', '')
 # DeviceID
