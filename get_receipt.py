@@ -3,7 +3,12 @@ from qrscanner import get_qr_data
 from furl import furl
 import requests
 
+#
 # Place .netrc in home directory with format "machine proverkacheka.nalog.ru login {you phone number} password {pin from sms}"
+#
+# Place your receipt photo with QR code in project root directory
+# Receipt QR code
+qr_file = 'qr1.png'
 
 # Random device ID
 dev_id = str(uuid.uuid4()).replace('-', '')
@@ -17,8 +22,6 @@ client = '1.4.1.3'
 uagent = 'okhttp/3.0.1'
 # Base URL
 base = 'https://proverkacheka.nalog.ru:9999'
-# Receipt QR code
-qr_file = 'qr1.png'
 
 f = furl('/?{}'.format(get_qr_data(qr_file)[0].decode("utf-8")))
 
