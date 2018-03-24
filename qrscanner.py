@@ -8,4 +8,4 @@ def get_qr_data(image_file):
         image = Image.open(image_file)
         image.load()
     codes = zbarlight.scan_codes('qrcode', image)
-    return codes[0].decode("utf-8")
+    return codes
