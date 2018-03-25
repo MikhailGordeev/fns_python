@@ -1,4 +1,4 @@
-#Проект [fns](https://github.com/eisaev/fns) переписанный на Python 3
+# Проект [fns](https://github.com/eisaev/fns) переписанный на Python 3
 
 1. Установите приложение "Проверка кассового  чека" для [iOS](https://itunes.apple.com/ru/app/проверка-кассового-чека-в-фнс-россии/id1169353005?l=en&mt=8) или [Android](https://play.google.com/store/apps/details?id=ru.fns.billchecker)
 2. В приложении ввредите номер своего мобильного телефона и получите пин по смс
