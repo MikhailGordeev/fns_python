@@ -6,9 +6,6 @@ import re
 import datetime
 from auth import phone, pin
 
-#
-# Place .netrc in home directory with format "machine proverkacheka.nalog.ru login {you phone number} password {pin from sms}"
-#
 # Place your receipt photo with QR code in project root directory
 # Receipt QR code
 qr_file = 'qr.png'
