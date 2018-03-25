@@ -1,2 +1,2 @@
-login = 'XXXX'
-passwd = 'XXXX'
+phone = 'XXX'
+pin = 'XXX'
