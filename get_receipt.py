@@ -2,13 +2,15 @@ import uuid
 from qrscanner import get_qr_data
 from furl import furl
 import requests
+import re
+import datetime
 
 #
 # Place .netrc in home directory with format "machine proverkacheka.nalog.ru login {you phone number} password {pin from sms}"
 #
 # Place your receipt photo with QR code in project root directory
 # Receipt QR code
-qr_file = 'qr1.png'
+qr_file = 'qr.png'
 
 # Random device ID
 dev_id = str(uuid.uuid4()).replace('-', '')
@@ -47,6 +49,47 @@ data_request = [
 
 request_receipt = "%s/v1/inns/*/kkts/*/fss/%s/tickets/%s" % (base, fn, fd)
 
-response = requests.get(request_receipt, headers=headers, params=data_request)
+response = requests.get(request_receipt, headers=headers, params=data_request).json()
 
-print(response.json())
+
+n = 0
+total_sum = response['document']['receipt']['totalSum'] * 0.01
+
+try:
+    user = response['document']['receipt']['user']
+    print(user)
+except KeyError:
+    # Key is not present
+    pass
+try:
+    retail_place_address = response['document']['receipt']['retailPlaceAddress']
+    print(retail_place_address)
+except KeyError:
+    # Key is not present
+    pass
+try:
+    user_inn = response['document']['receipt']['userInn']
+    print('ИНН {}\n'.format(user_inn))
+
+except KeyError:
+    # Key is not present
+    pass
+print(datetime.datetime(*map(int, re.split('[^\d]', response['document']['receipt']['dateTime']))).strftime('%d.%m.%Y %H:%M'))
+print('Чек № {}'.format(response['document']['receipt']['requestNumber']))
+try:
+    shift_number = response['document']['receipt']['shiftNumber']
+    print('Смена № {}'.format(shift_number))
+except KeyError:
+    # Key is not present
+    pass
+print('Кассир {}'.format(response['document']['receipt']['operator']))
+print('Приход')
+print('-------------------------------------------------------------------')
+print('№  Название                              Цена    Кол.    Сумма')
+for i in response['document']['receipt']['items']:
+    n += 1
+    price = i['price'] * 0.01
+    sum = i['sum'] * 0.01
+    print('{}  {}   {:,.2f}       {}      {:,.2f}'.format(n, i['name'], price, i['quantity'], sum))
+print('-------------------------------------------------------------------')
+print('Итого: {:,.2f}'.format(total_sum))
