@@ -1,0 +1,2 @@
+login = 'XXXX'
+passwd = 'XXXX'

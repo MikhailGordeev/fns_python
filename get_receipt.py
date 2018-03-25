@@ -4,6 +4,7 @@ from furl import furl
 import requests
 import re
 import datetime
+from auth import login, passwd
 
 #
 # Place .netrc in home directory with format "machine proverkacheka.nalog.ru login {you phone number} password {pin from sms}"
@@ -49,7 +50,7 @@ data_request = [
 
 request_receipt = "%s/v1/inns/*/kkts/*/fss/%s/tickets/%s" % (base, fn, fd)
 
-response = requests.get(request_receipt, headers=headers, params=data_request).json()
+response = requests.get(request_receipt, headers=headers, params=data_request, auth=(login, passwd)).json()
 
 
 n = 0
